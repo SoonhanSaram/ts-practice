@@ -4,10 +4,14 @@ export default function Page() {
 
     const onPressEnter = async (e : any) => {
         const key = e.key;
-        
+
         if (key === "Enter") {
+            // fetchoption
+            const fecthOption = {
+                method: "GET",               
+            };
             // "Enter" 키를 눌렀을 때 API 호출
-            const res = await fetch(`/api/route`);
+            const res = await fetch(`/api/hello`, fecthOption);
             if (!res.ok) {
               console.error('Network response was not ok');
               return;
