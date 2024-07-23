@@ -1,6 +1,10 @@
 'use client';
 
 export default function Page() {
+       
+    const pushMessage = async (destination:any , message:String) => {
+        
+    }
 
     const onPressEnter = async (e : any) => {
         const key = e.key;
@@ -22,11 +26,21 @@ export default function Page() {
     }
 
     return (
-        <div className="flex min-h-screen flex-col items-center justify-center">
-            <div>
+        <div className="warapper">
+            <div className="navbar"> 
+                <span className="navmenu"></span>
+                <span className="navmenu"></span>
+                <span className="navmenu"></span>
+                <span className="navmenu"></span>                
+            </div>
+            <div className="container">
                 <h3>push alarm</h3>
                 <div>
                     <input className="border-2 border-gray-300" type="text" placeholder="보내고 싶은 메시지를 적어주세요" onKeyDown={(e) => onPressEnter(e)}/>
+                </div>
+
+                <div>
+                    <span></span>
                 </div>
             </div>
         </div>
