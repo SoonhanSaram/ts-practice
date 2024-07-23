@@ -3,12 +3,6 @@
 import { useState } from "react";
 
 export default function Page() {
-<<<<<<< HEAD
-       
-    const pushMessage = async (destination:any , message:String) => {
-        
-    }
-=======
  
     const [message, setMessage] = useState("");
    
@@ -16,7 +10,6 @@ export default function Page() {
         alert(message);
     }
 
->>>>>>> c4588f8fec25981b69955774b39805e8f526e6e1
 
     const onPressEnter = async (e : any) => {
         const key = e.key;
