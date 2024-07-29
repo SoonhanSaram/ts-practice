@@ -1,17 +1,25 @@
-import mysql from 'mysql2';
-
-
-let db;
-
-try {
-    db = mysql.createConnection({       
-        user: process.env.NEXT_DB_USER,
-        password: process.env.NEXT_DB_PASSWD,
-        port: process.env.NEXT_DB_PORT,
-        database: process.env.NEXT_DB
-    });
-} catch(err) {
-     console.error('Database connection error : ', err);
-}
-
-export default db;
+export default {
+    development: {
+      username: 'root',
+      password: 'tlcjdfh13^^!',
+      database: 'SDA_GIDO',
+      host: "127.0.0.1",
+      port : 3308,
+      dialect: "mysql",
+      logging: true,
+    },
+    test: {
+      username: "root",
+      password: "password",
+      database: "sample",
+      host: "127.0.0.1",
+      dialect: "mysql",
+    },
+    production: {
+      username: "root",
+      password: "password",
+      database: "sample",
+      host: "127.0.0.1",
+      dialect: "mysql",
+    },
+  };

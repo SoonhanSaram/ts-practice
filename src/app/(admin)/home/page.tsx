@@ -1,11 +1,22 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Page() {
  
     const [message, setMessage] = useState("");
-   
+    
+    useEffect(() => {
+        const getMenu = async () => {
+            const fetchoption = {
+                method: "GET",
+            }
+            await fetch(`/api/menu`, fetchoption );
+        }        
+        getMenu();
+        
+    }, [message]);
+
     const alertMessage = (message : string) => {
         alert(message);
     }
