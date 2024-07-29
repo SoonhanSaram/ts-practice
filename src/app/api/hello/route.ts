@@ -11,5 +11,5 @@ export async function GET(req: NextApiRequest, res: NextResponse) {
 
 
   // typescript 에서 res 보내기
-
+ 
 }
