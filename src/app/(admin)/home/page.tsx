@@ -2,8 +2,17 @@
 
 import { useEffect, useState } from "react";
 
+interface Menu {
+    menu_id : string;
+    menu_name : string;
+    menu_order : number;
+    upper_menu : string;
+    menu_url : string;    
+    menu_authorizaion : string;
+}
+
 export default function Page() {
- 
+    
     const [message, setMessage] = useState("");
     
     useEffect(() => {
