@@ -1,5 +1,9 @@
+'use client'
+
 import Link from 'next/link';
 import menus from '../../../data/menu.json';
+import { useEffect } from 'react';
+import menu from '../features/admin/menu';
 
 interface Menu {
     menu_id : string;
@@ -40,6 +44,24 @@ export default function Page() {
     //     }       
         
     // }
+
+    const menuFetch = async () => {
+        const fecthOption = {
+            method: "GET",               
+        };
+    const res = await fetch(`/api/menu`, fecthOption);
+        if (!res.ok) {
+          console.error('Network response was not ok');
+          return;
+        }
+        const data = await res.json();
+        console.log(data.message);
+    }
+
+    useEffect(() => {
+        menuFetch();
+    })
+
 
     const filteredMenus = menus.filter(menu => menu.menu_id.length == 4);
 
