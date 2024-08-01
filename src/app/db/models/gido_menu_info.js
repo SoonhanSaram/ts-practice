@@ -21,12 +21,14 @@ export default (sequelize) => {
     upper_menu: {
       type: Sequelize.DataTypes.STRING(20),
       allowNull: true,
-      comment: "상위 메뉴id"
+      comment: "상위 메뉴id",
+      defaultValue: ''
     },
     menu_url: {
       type: Sequelize.DataTypes.STRING(255),
       allowNull: true,
-      comment: "메뉴 url"
+      comment: "메뉴 url",
+      defaultValue: ''
     },
     use_yn: {
       type: Sequelize.DataTypes.ENUM('y', 'n'),

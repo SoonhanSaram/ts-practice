@@ -1,27 +1,53 @@
 'use client'
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import menus from '../../../../data/menu.json';
+import AddMenu from './addMenu';
 
-interface Menu {
-    menu_id: string;
-    menu_name: string;
-    menu_order: number;
-    upper_menu: string;
-    menu_url: string;
-    use_yn: string;
-    menu_authorizaion: string;
-  }
+interface AddMenuProps {
+    modal: () => void;
+  } 
 
 const PID04 = () => {
     
+    const field : {id : keyof Menu, title: string} [] = [
+        {id : "menu_id", title : "메뉴 ID"},
+        {id : "menu_name", title : "메뉴 이름"},
+        {id : "menu_order", title : "메뉴 순서"},
+        {id : "upper_menu", title : "상위메뉴ID"},
+        {id : "menu_url", title : "URL"},
+        {id : "use_yn", title : "사용 여부"},
+        {id : "menu_authorizaion", title : "메뉴 권한"},
+    ]
+
     
     // 클릭 상태 관리
     const [cliked, setCliked] = useState<{[key : string ]: boolean}>({});
     const [selectedMenu, setSelectedMenu] = useState<Menu | null>(null);
+    const [showModal, setShowModal] = useState(false);
+
+
+    // input state
+    const [inputValue, setInputValue] = useState<any>("");
+
+    // input state init
+    const initInputValue = (menu? : Menu) => {
+        if (!menu) {
+            field.map((input) => {
+                return setInputValue({[input.id] : ""})
+            })
+        } else {
+            field.forEach(input => {
+                setInputValue((prevValues: any)  => ({
+                    ...prevValues,
+                    [input.id] : menu[input.id]
+                }))
+            })
+        }
+    }
 
     // 메뉴 클릭 시 상태 토글
-    const toggleMenu = (menuId : string) => {
+    const toggleMenu = async (menuId : string) => {
         setCliked(prevState => ({
             ...prevState,
             [menuId]: !prevState[menuId]
@@ -29,8 +55,10 @@ const PID04 = () => {
 
         const tmp = menus.find((menu) => menu.menu_id === menuId );
         
-        if(tmp) {
+        if (tmp)  {
             selectMenu(tmp);
+            
+            initInputValue(tmp!);
         }
         
 
@@ -39,10 +67,43 @@ const PID04 = () => {
     
     // 메뉴 선택
     const selectMenu = (menu : Menu) => {
-        setSelectedMenu(menu);
+        setSelectedMenu(menu);        
+        
     };
 
+    const toggleModal = () => {
+        setShowModal(!showModal);
+    }
+
+    useEffect(() => {
+        initInputValue(selectedMenu!);
+    }, [selectedMenu])
+    
+
+    const showDetail = () => {
+        return  (
+            selectedMenu ? 
+        field.map((input) => {
+            return (
+                <>
+                <label htmlFor={input.id}>{input.title}</label> <input id={input.id} value={inputValue[input.id]}/><br/>
+                </>
+            )
+        }) : 
+        field.map((input) => {
+            return (
+                <>
+                <label htmlFor={input.id}>{input.title}</label> <input id={input.id} value={inputValue[input.id]}/><br/>
+                </>
+            )
+        })
+        )
+    }
+
+
+
     return (
+        <>
         <div>
             <h4>PID04 메뉴관리 페이지</h4>
             <div className='container'>
@@ -53,8 +114,8 @@ const PID04 = () => {
                         {menus.map((menu) => (
                             menu.upper_menu == '' ? <li>
                                 <span style={{cursor: 'pointer'}} onClick={() => toggleMenu(menu.menu_id)}>{menu.menu_name}</span>
-                                    {cliked[menu.menu_id] &&<ul> {menus.filter(subMenu => subMenu.upper_menu === menu.menu_id).map(subMenu => (
-                                        <li onClick={() => selectMenu(subMenu)}>&nbsp;{subMenu.menu_name}</li>
+                                    {cliked[menu.menu_id] && <ul> {menus.filter(subMenu => subMenu.upper_menu === menu.menu_id).map(subMenu => (
+                                        <li onClick={() => {selectMenu(subMenu); console.log(subMenu)}}>&nbsp;{subMenu.menu_name}</li>
                                 ))}
                             </ul>}
                             </li> : null
@@ -63,21 +124,16 @@ const PID04 = () => {
                 </div>
                 <div>
                 <div>
-                    <label htmlFor="menu_id">메뉴 ID</label>     <input id="menu_id" value={selectedMenu?.menu_id || ''} readOnly/><br/>
-                    <label htmlFor="menu_name">메뉴 이름</label> <input id="menu_name" value={selectedMenu?.menu_name || ''}/><br/>
-                    <label htmlFor="menu_order">메뉴 순서</label> <input id="menu_order" value={selectedMenu?.menu_order || ''}/><br/>
-                    <label htmlFor="upper_menu">상위메뉴ID</label><input id="upper_menu" value={selectedMenu?.upper_menu || ''}/> <br/>
-                    <label htmlFor="menu_url">URL</label>       <input id="menu_url" value={selectedMenu?.menu_url || ''}/><br/>
-                    <label htmlFor="use_yn">사용여부</label>  <input id="use_yn" value={selectedMenu?.use_yn || ''}/><br/>
-                    <label htmlFor="menu_authorizaion">메뉴 권한</label> <input id="menu_authorizaion" value={selectedMenu?.menu_authorizaion || ''}/><br/>
+                    {showDetail()}
                 </div>
-                <button>추가</button> &nbsp;
+                <button onClick={toggleModal}>추가</button> &nbsp;
                 <button>수정</button> &nbsp;
                 <button>삭제</button> &nbsp;
                 </div>
-            </div>
+            </div>            
         </div>
-
+        {showModal &&<AddMenu modal={toggleModal} />}
+        </>
     )
 };
 

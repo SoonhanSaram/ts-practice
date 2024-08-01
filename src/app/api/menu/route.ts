@@ -4,16 +4,6 @@ import db from '../../db/index.js';
 import path from 'path';
 import fs from 'fs'
 
-
-interface Menu {
-  menu_id : string;
-  menu_name : string;
-  menu_order : number;
-  upper_menu : string;
-  menu_url : string;    
-  menu_authorizaion : string;
-}
-
 const user = db.models.menus;
 const folderPath = path.join(process.cwd(), 'data');
 const filePath = path.join(folderPath, 'menu.json');
