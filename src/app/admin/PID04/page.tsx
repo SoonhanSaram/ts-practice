@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import menus from '../../../../data/menu.json';
 import AddMenu from './addMenu';
 
@@ -25,7 +25,9 @@ const PID04 = () => {
     const [cliked, setCliked] = useState<{[key : string ]: boolean}>({});
     const [selectedMenu, setSelectedMenu] = useState<Menu | null>(null);
     const [showModal, setShowModal] = useState(false);
-
+ 
+    // li useRef
+    const liRef = useRef<null[] | HTMLLIElement[]>([]);
 
     // input state
     const [inputValue, setInputValue] = useState<any>("");
@@ -47,17 +49,38 @@ const PID04 = () => {
     }
 
     // 메뉴 클릭 시 상태 토글
-    const toggleMenu = async (menuId : string) => {
-        setCliked(prevState => ({
-            ...prevState,
-            [menuId]: !prevState[menuId]
-        }));
+    const toggleMenu = async (menuId : string, e : any) => {
+
+        // 이벤트 전파 방지
+        e.stopPropagation();
 
         const tmp = menus.find((menu) => menu.menu_id === menuId );
+
+        // console.log("tmp =========================", menuId.length);
+        // console.log("클릭된 메뉴 ==========================", cliked);
+        if (tmp?.menu_id.length === 4) {
+            setCliked(prevState => ({
+                ...prevState,
+                [menuId]: !prevState[menuId]
+            }));
+        }
+        const activeMenu = (e : any) => {
+            // console.log("위치확인 =========================")
+            // 모든 li classlist 를 순회해서 클릭되지 않은 li 의 "clicked" 클래스 삭제
+            liRef.current.forEach((li) => {                
+                li?.classList.remove("clicked");
+            })
+            // console.log("위치확인2 =========================")
+            e.target.classList.add("clicked");
+        }
+
+        activeMenu(e);
+
+        console.log('ref 확인========================' , liRef.current);
+        
         
         if (tmp)  {
             selectMenu(tmp);
-            
             initInputValue(tmp!);
         }
         
@@ -67,9 +90,10 @@ const PID04 = () => {
     
     // 메뉴 선택
     const selectMenu = (menu : Menu) => {
-        setSelectedMenu(menu);        
-        
+        setSelectedMenu(menu);
     };
+
+    
 
     const toggleModal = () => {
         setShowModal(!showModal);
@@ -86,14 +110,14 @@ const PID04 = () => {
         field.map((input) => {
             return (
                 <>
-                <label htmlFor={input.id}>{input.title}</label> <input id={input.id} value={inputValue[input.id]}/><br/>
+                <label htmlFor={input.id}>{input.title}</label> <input id={input.id} value={inputValue[input.id]} key={input.id}/><br/>
                 </>
             )
         }) : 
         field.map((input) => {
             return (
                 <>
-                <label htmlFor={input.id}>{input.title}</label> <input id={input.id} value={inputValue[input.id]}/><br/>
+                <label htmlFor={input.id}>{input.title}</label> <input id={input.id} value={inputValue[input.id]} key={input.id}/><br/>
                 </>
             )
         })
@@ -103,37 +127,36 @@ const PID04 = () => {
 
 
     return (
-        <>
-        <div>
-            <h4>PID04 메뉴관리 페이지</h4>
-            <div className='container'>
-                <div>
-                    <h2>메뉴 목록</h2>
-                    
+        
+            <div>
+                <h4>PID04 메뉴관리 페이지</h4>
+                <div className='container'>
                     <div>
-                        {menus.map((menu) => (
-                            menu.upper_menu == '' ? <li>
-                                <span style={{cursor: 'pointer'}} onClick={() => toggleMenu(menu.menu_id)}>{menu.menu_name}</span>
-                                    {cliked[menu.menu_id] && <ul> {menus.filter(subMenu => subMenu.upper_menu === menu.menu_id).map(subMenu => (
-                                        <li onClick={() => {selectMenu(subMenu); console.log(subMenu)}}>&nbsp;{subMenu.menu_name}</li>
-                                ))}
-                            </ul>}
-                            </li> : null
-                        ))}    
+                        <h2>메뉴 목록</h2>
+                        <div>
+                            {menus.map((menu, i) => (
+                                menu.upper_menu == '' ? <li ref={ (el) => {liRef.current[i] = el}} style={{cursor: 'pointer'}} key={menu.menu_id} onClick={e => toggleMenu(menu.menu_id, e)}>{menu.menu_name}
+                                        {cliked[menu.menu_id] && menus.filter(subMenu => subMenu.upper_menu === menu.menu_id).map((subMenu, si) => (
+                                            <li ref={(el) => {liRef.current[i*10+si] = el}} onClick={(e) => toggleMenu(subMenu.menu_id, e)} key={subMenu.menu_id}>&nbsp;{subMenu.menu_name}</li>
+                                    ))
+                                }
+                                </li> : null
+                            ))}    
+                        </div>
                     </div>
-                </div>
-                <div>
-                <div>
-                    {showDetail()}
-                </div>
-                <button onClick={toggleModal}>추가</button> &nbsp;
-                <button>수정</button> &nbsp;
-                <button>삭제</button> &nbsp;
-                </div>
-            </div>            
-        </div>
-        {showModal &&<AddMenu modal={toggleModal} />}
-        </>
+                    <div>
+                    <div>
+                        {showDetail()}
+                    </div>
+                    <button onClick={toggleModal}>추가</button> &nbsp;
+                    <button>수정</button> &nbsp;
+                    <button>삭제</button> &nbsp;
+                    </div>
+                </div>            
+                {showModal &&<AddMenu modal={toggleModal} />}
+            </div>
+        
+        
     )
 };
 
