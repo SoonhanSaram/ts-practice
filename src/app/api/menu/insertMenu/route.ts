@@ -21,7 +21,7 @@ export async function POST(req: Request, res : NextApiResponse) {
         
         const findAllMenu = await menu.findAll();
 
-        // db 에서 return 받은 정보를 menu.json 에 저장한 성공했다면 redux 에 menu 정보 저장
+        // db 에서 return 받은 메뉴 정보를 menu.json 에 저장.
         if(!fs.existsSync(folderPath)) {
             fs.mkdirSync(folderPath);
         }
@@ -30,10 +30,10 @@ export async function POST(req: Request, res : NextApiResponse) {
             if (err) {
               console.error(err);
               return ;
-        }    
-
-        return NextResponse.json({status : 200});
+        }
     });
+        console.log('위치확인 ========================')
+        return NextResponse.json({status : 200});
     } catch (error) {
         console.error({message : 'error', error});
         return NextResponse.json({status : 300});

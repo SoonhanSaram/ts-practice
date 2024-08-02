@@ -69,7 +69,7 @@ export default function Page() {
         <div className="warapper">
             <div className="navbar"> 
                 {filteredMenus.map((menu) => (
-                   <span className="navmenu" ><Link href={menu.menu_url}>{menu.menu_name}</Link></span>
+                   <span className="navmenu" key={menu.menu_id}><Link href={menu.menu_url}>{menu.menu_name}</Link></span>
                 ))}
             </div>
             <div className="container">                
