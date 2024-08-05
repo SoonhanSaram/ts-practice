@@ -65,34 +65,110 @@
 }
 
 .navbar {  
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  gap: 20px;
+  position: fixed;
+  width: 13em;
+  background-color: #19222a;
+  height: 100%;
+  font-weight: 400; 
+  font-size: 1.2em;
+  overflow: auto;
+  padding-bottom: 6em;
+  z-index: 9;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
 
-  position: absolute;
-  height: 80px;
-  left: 0px;
-  right: 0px;
-  top: 0px;
+  ul{
+    list-style:none;
+    display: block;
+    padding: 0;
+    margin: 0;
 
-  background: #FFFFFF;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.12);
+    li {
+      margin-left: 0;
+      padding-left: 0;
+      /* min-width: 13em; */
+      display:inline-block;
+      width: 100%;
+    }
+
+    a {
+      color: rgba(255,255,255,0.9);
+        font-size: 0.75em;
+        padding: 1.05em	1em;
+        position: relative;
+        display:block;
+        
+        &:hover{
+          background-color: rgba(0,0,0,0.9);
+          @include transition(all 0.6s ease);
+        }
+    }
+  }
+
+  .nav-menu {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative;
+
+    svg {
+      display : inline;
+    }
+  }
+
+  .nav-menu > .sub-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: start;  
+    list-style-type: none;
+    padding: 0;
+    margin: 0; 
+    background-color: rgba(0, 0,0, 0.15);
+    position: relative;
+    left: 20px;
+
+    .nav-menu > .sub-menu >li{
+      margin-left: 500;
+    }
+  }
 }
 
-.navmenu {
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;  
-  z-index: 1;
-  color : black;
-  cursor: pointer;
+
+div.row-container {
+  display: flex;  
+  flex-wrap: wrap; /* 자식 요소들이 넘치면 줄 바꿈 */
+  gap: 10px; /* 자식 요소 간의 간격을 설정 */
+
+
+  .row-item {
+    flex: 1 1 auto; /* 자식 요소가 컨테이너의 가용 공간을 적절히 차지하도록 설정 */
+    min-width: 60px; /* 자식 요소의 최소 너비를 설정 (적절히 조절 가능) */
+    min-height: 20px;
+    margin: 8px;
+    color:#FFFFFF;
+    cursor: pointer;
+  }
 }
+
 
 .clicked {
   color: blue;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 100px 100px;
+  border-color: transparent transparent #FFFFFF transparent;
+}
+
+.triangle180 {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 100px 100px 0 0;
+  border-color: #FFFFFF transparent transparent transparent;
 }
