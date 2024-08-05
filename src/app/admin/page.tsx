@@ -1,9 +1,9 @@
 'use client'
 
-import Link from 'next/link';
+
 import menus from '../../../data/menu.json';
 import { useEffect } from 'react';
-import menu from '../features/admin/menu';
+import SideNav from '../components/sideNav';
 
 interface Menu {
     menu_id : string;
@@ -66,12 +66,7 @@ export default function Page() {
     const filteredMenus = menus.filter(menu => menu.menu_id.length == 4);
 
     return (
-        <div className="warapper">
-            <div className="navbar"> 
-                {filteredMenus.map((menu) => (
-                   <span className="navmenu" key={menu.menu_id}><Link href={menu.menu_url}>{menu.menu_name}</Link></span>
-                ))}
-            </div>
+        <div className="warapper">            
             <div className="container">                
                 <div>
                     {/* <input className="border-2 border-gray-300" type="text" placeholder="보내고 싶은 메시지를 적어주세요" onKeyDown={(e) => onPressEnter(e)}/> */}

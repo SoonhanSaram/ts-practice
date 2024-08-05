@@ -22,7 +22,7 @@ menu_authorizaion varchar(50) comment '메뉴 권한'
 /*	             				 메뉴ID,   메뉴명,  메뉴순서, 상위메뉴ID, 메뉴 url, 사용 여부, 메뉴 권한  */
 insert into GIDO_menu_info value('ad01', '푸시알람', 1 ,'', 'admin/PID01', 'y', 'admin');
 insert into GIDO_menu_info value('ad02', '회원관리', 2 ,'' , 'admin/PID02', 'y', 'admin');
-insert into GIDO_menu_info value('ad03', '배너관리', 3,'' , 'admin/PID03', 'y', 'admin');
+insert into GIDO_menu_info value('ad03', '배너관리', 3,'' , '', 'y', 'admin');
 insert into GIDO_menu_info value('ad04', '메뉴관리', 4,'' , 'admin/PID04', 'y', 'admin');
 
 insert into GIDO_menu_info value('ad0301', '이벤트배너관리',1 ,'ad03' , 'admin/PID0301', 'y', 'admin');
