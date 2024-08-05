@@ -65,9 +65,16 @@ const PID04 = () => {
             }));
         }
         const activeMenu = (e : any) => {
+
+            // dataset 의 key 값 가져오기
+            const menuId = e.target.getAttribute('key')
+            
+            
+
             // console.log("위치확인 =========================")
             // 모든 li classlist 를 순회해서 클릭되지 않은 li 의 "clicked" 클래스 삭제
-            liRef.current.forEach((li) => {                
+            liRef.current.forEach((li) => {
+                console.log("li =========================", li);                
                 li?.classList.remove("clicked");
             })
             // console.log("위치확인2 =========================")
@@ -101,7 +108,9 @@ const PID04 = () => {
 
     useEffect(() => {
         initInputValue(selectedMenu!);
-    }, [selectedMenu])
+
+        
+    }, [selectedMenu, liRef])
     
 
     const showDetail = () => {
@@ -127,7 +136,6 @@ const PID04 = () => {
 
 
     return (
-        
             <div>
                 <h4>PID04 메뉴관리 페이지</h4>
                 <div className='container'>
@@ -135,7 +143,7 @@ const PID04 = () => {
                         <h2>메뉴 목록</h2>
                         <div>
                             {menus.map((menu, i) => (
-                                menu.upper_menu == '' ? <li ref={ (el) => {liRef.current[i] = el}} style={{cursor: 'pointer'}} key={menu.menu_id} onClick={e => toggleMenu(menu.menu_id, e)}>{menu.menu_name}
+                                menu.upper_menu == '' ? <li data-key={menu.menu_id} ref={ (el) => {liRef.current[i] = el}} style={{cursor: 'pointer'}} key={menu.menu_id} onClick={e => toggleMenu(menu.menu_id, e)}>{menu.menu_name}
                                         {cliked[menu.menu_id] && menus.filter(subMenu => subMenu.upper_menu === menu.menu_id).map((subMenu, si) => (
                                             <li ref={(el) => {liRef.current[i*10+si] = el}} onClick={(e) => toggleMenu(subMenu.menu_id, e)} key={subMenu.menu_id}>&nbsp;{subMenu.menu_name}</li>
                                     ))
