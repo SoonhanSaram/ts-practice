@@ -14,7 +14,6 @@ export async function GET(req: NextApiRequest, res : NextApiResponse) {
  if(!fs.existsSync(folderPath)) {
     fs.mkdirSync(folderPath);
  }
-
   fs.writeFile(filePath, JSON.stringify(findAllMenu, null, 2), 'utf8', (err : any) => {
     if (err) {
       console.error(err);

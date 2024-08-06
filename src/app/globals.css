@@ -22,12 +22,112 @@
   }
 }
 
+.button-wrapper {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+}
+/* 버튼 디자인 */
+.button {
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  color: #333;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.button:hover{
+  background-color: #ccc;
+  color: #333;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+
+  .modal-content {
+    background-color: #fff;    
+    padding: 20px;
+    border-radius: 8px;
+    min-width: 30%;
+    max-width: 80%;
+    max-height: 80%;
+    overflow-y: auto; /* 내용이 길어지면 스크롤 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 99;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .modal-content > div {
+    padding: 10px;
+  }
+}
+
+.dust-class {
+  width: 50%;
+  box-sizing: border-box;
+  margin: 20px auto;
+  position: relative;
+}
+.dust-class label {
+  display: inline-block;
+  position: absolute;
+  left: 14px;
+  padding: 1px;
+  background: white;
+  font-size: 14px;
+  color: #888;
+  font-weight: bold;
+}
+.dust-class.ver2 label {
+  top: initial;
+  bottom: -20px;
+}
+.dust-class label span {
+  color: #da4841;
+  vertical-align: -1px;
+}
+.dust-class input {
+  width: 100%;
+  border: 1px solid #dddddd !important;
+  font-size: 1rem;
+  line-height: 1.45;
+  letter-spacing: -0.04rem;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 12px;
+}
+
+input {
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+}
+
 /* Auto layout */
 .Wrapper {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;    
+  align-items: center;
   padding: 20px;
   gap: 20px;
   position: absolute;
@@ -36,22 +136,32 @@
   right: 0px;
   top: 0px;
 
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.12);
 }
 
 /* Auto layout */
 .container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 60px;
-  gap: 60px;
-  isolation: isolate;
-  width: 1220px;
-  height: 456px;
-  background: #FFFFFF;
+  max-width: 1200px; /* 최대 너비 */
+  margin: 0 auto; /* 가운데 정렬 */
+  padding: 20px; /* 내부 여백 */
+
+  .contentsBox {
+    display: flex; /* Flexbox 사용 */
+    flex-wrap: wrap; /* 행이 가득 차면 다음 행으로 넘김 */
+    gap: 10px; /* 아이템 사이의 간격 */
+    padding: 10px; /* 내부 여백 */
+  }
+
+  .item {
+    flex: 1 1 calc(33.333% - 20px); /* 각 아이템이 3등분 차지하도록 */
+    padding: 10px; /* 내부 여백 */
+    background-color: #ffffff; /* 아이템 배경색 */
+    border: 1px solid #ccc; /* 아이템 테두리 */
+    border-radius: 4px; /* 아이템 둥근 모서리 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 아이템 그림자 */
+    box-sizing: border-box; /* 테두리 및 패딩 포함한 박스 크기 계산 */
+  }
 }
 
 .button_black {
@@ -64,12 +174,12 @@
   height: 48px;
 }
 
-.navbar {  
+.navbar {
   position: fixed;
   width: 13em;
   background-color: #19222a;
   height: 100%;
-  font-weight: 400; 
+  font-weight: 400;
   font-size: 1.2em;
   overflow: auto;
   padding-bottom: 6em;
@@ -77,8 +187,8 @@
   overflow: hidden;
   -webkit-overflow-scrolling: touch;
 
-  ul{
-    list-style:none;
+  ul {
+    list-style: none;
     display: block;
     padding: 0;
     margin: 0;
@@ -87,21 +197,21 @@
       margin-left: 0;
       padding-left: 0;
       /* min-width: 13em; */
-      display:inline-block;
+      display: inline-block;
       width: 100%;
     }
 
     a {
-      color: rgba(255,255,255,0.9);
-        font-size: 0.75em;
-        padding: 1.05em	1em;
-        position: relative;
-        display:block;
-        
-        &:hover{
-          background-color: rgba(0,0,0,0.9);
-          @include transition(all 0.6s ease);
-        }
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.75em;
+      padding: 1.05em 1em;
+      position: relative;
+      display: block;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.9);
+        @include transition(all 0.6s ease);
+      }
     }
   }
 
@@ -114,47 +224,52 @@
     position: relative;
 
     svg {
-      display : inline;
+      display: inline;
     }
   }
 
   .nav-menu > .sub-menu {
     display: flex;
     flex-direction: column;
-    align-items: start;  
+    align-items: start;
     list-style-type: none;
     padding: 0;
-    margin: 0; 
-    background-color: rgba(0, 0,0, 0.15);
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.15);
     position: relative;
     left: 20px;
 
-    .nav-menu > .sub-menu >li{
+    .nav-menu > .sub-menu > li {
       margin-left: 500;
     }
   }
 }
 
-
 div.row-container {
-  display: flex;  
+  display: flex;
   flex-wrap: wrap; /* 자식 요소들이 넘치면 줄 바꿈 */
   gap: 10px; /* 자식 요소 간의 간격을 설정 */
-
 
   .row-item {
     flex: 1 1 auto; /* 자식 요소가 컨테이너의 가용 공간을 적절히 차지하도록 설정 */
     min-width: 60px; /* 자식 요소의 최소 너비를 설정 (적절히 조절 가능) */
     min-height: 20px;
     margin: 8px;
-    color:#FFFFFF;
+    color: #ffffff;
     cursor: pointer;
   }
 }
 
+.menu-title {
+  border-bottom: rgba(0, 0, 0, 0.3) solid 1px;
+}
 
 .clicked {
-  color: blue;
+  color: rgb(130, 130, 161);
+  background-color: lightcoral;
+  li {
+    color: black;
+  }
 }
 
 .triangle {
@@ -162,7 +277,7 @@ div.row-container {
   height: 0;
   border-style: solid;
   border-width: 0 0 100px 100px;
-  border-color: transparent transparent #FFFFFF transparent;
+  border-color: transparent transparent #ffffff transparent;
 }
 
 .triangle180 {
@@ -170,5 +285,5 @@ div.row-container {
   height: 0;
   border-style: solid;
   border-width: 100px 100px 0 0;
-  border-color: #FFFFFF transparent transparent transparent;
+  border-color: #ffffff transparent transparent transparent;
 }
