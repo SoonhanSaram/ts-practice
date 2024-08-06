@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { VscChevronDown, VscChevronUp, VscHome, VscSignOut, VscStarFull } from "react-icons/vsc";
 const SideNav = () => {
 
-    const filteredMenus = menus.filter(menu => menu.upper_menu === "");
+    const filteredMenus = menus.filter(menu => menu.upper_menu === "" && menu.use_yn === 'y');
     const [clicked, setClicked] = useState();
     // {menus.map((menu, i) => (
         // menu.upper_menu == '' ? <li ref={ (el) => {liRef.current[i] = el}} style={{cursor: 'pointer'}} key={menu.menu_id} onClick={e => toggleMenu(menu.menu_id, e)}>{menu.menu_name}
@@ -30,6 +30,8 @@ const SideNav = () => {
     useEffect(() => {
 
     }, [clicked])
+
+    
 
     return (
         <div className='navbar'>

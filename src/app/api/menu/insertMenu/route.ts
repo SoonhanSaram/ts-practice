@@ -26,6 +26,9 @@ export async function POST(req: Request, res : NextApiResponse) {
             fs.mkdirSync(folderPath);
         }
         
+        // 사용 여부 확인
+        // const filteredMenu = findAllMenu.filter((menu : any) => menu.use_yn === 'y');
+
         fs.writeFile(filePath, JSON.stringify(findAllMenu, null, 2), 'utf8', (err : any) => {
             if (err) {
               console.error(err);

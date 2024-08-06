@@ -1,0 +1,17 @@
+.list {
+padding: 10px;
+
+}
+
+.list.clicked {
+background-color: lightblue;
+}
+
+.listItem {
+padding: 10px;
+
+}
+
+.listItem.clicked {
+background-color: lightcoral;
+}
