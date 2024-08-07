@@ -1,6 +1,4 @@
 'use client'
-
-
 import menus from '../../../data/menu.json';
 import { useEffect } from 'react';
 import SideNav from '../components/sideNav';
