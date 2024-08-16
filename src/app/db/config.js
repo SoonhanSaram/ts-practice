@@ -1,18 +1,20 @@
 export default {
     development: {
-      username: 'root',
-      password: 'tlcjdfh13^^!',
-      database: 'SDA_GIDO',
+      username: process.env.NEXT_PUBLIC_DB_USERNAME || 'root',
+      password: process.env.NEXT_PUBLIC_DB_PASSWD,
+      database: process.env.NEXT_PUBLIC_DB,
       host: "127.0.0.1",
-      port : 3308,
+      port : process.env.NEXT_PUBLIC_DB_PORT,
       dialect: "mysql",
       logging: true,
     },
     test: {
-      username: "root",
-      password: "password",
-      database: "sample",
+      username: process.env.NEXT_PUBLIC_DB_USERNAME || 'root',
+      password: process.env.NEXT_PUBLIC_DB_PASSWD,
+      database: process.env.NEXT_PUBLIC_DB,
       host: "127.0.0.1",
+      port : process.env.NEXT_PUBLIC_DB_PORT,
+      logging: true,
       dialect: "mysql",
     },
     production: {

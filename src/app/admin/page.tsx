@@ -3,16 +3,7 @@
 
 import menus from '../../../data/menu.json';
 import { useEffect } from 'react';
-import SideNav from '../components/sideNav';
 
-interface Menu {
-    menu_id : string;
-    menu_name : string;
-    menu_order : number;
-    upper_menu : string;
-    menu_url : string;    
-    menu_authorizaion : string;
-}
 
 export default function Page() {
 

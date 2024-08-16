@@ -1,4 +1,5 @@
 
+
 /* 지도 DB*/
 
 drop database if exists SDA_GIDO;

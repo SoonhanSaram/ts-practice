@@ -94,24 +94,25 @@ const PID04 = () => {
       }));
     }
     const activeMenu = (e: any) => {
+
+
       // dataset 의 key 값 가져오기
-      const menuId = e.target.getAttribute("key");
+      const menuKey = e.currentTarget.getAttribute("key");
+
+      console.log("menuId =========================", menuKey);
 
       // console.log("위치확인 =========================")
       // 모든 li classlist 를 순회해서 클릭되지 않은 li 의 "clicked" 클래스 삭제
-      liRef.current.forEach((li) => {
-        // console.log("li =========================", li);
-        li?.classList.remove("clicked");
-      });
+      liRef.current.map((li) => {
+        li?.classList.remove('clicked');
+      })
       // console.log("위치확인2 =========================")
-      e.target.getAttribute("key") === menuId
+      e.target.getAttribute("key") === menuKey
         ? e.target.classList.add("clicked")
         : null;
     };
 
     activeMenu(e);
-
-    console.log("ref 확인========================", liRef.current);
 
     if (tmp) {
       selectMenu(tmp);
@@ -137,6 +138,7 @@ const PID04 = () => {
 
   useEffect(() => {
     initInputValue(selectedMenu!);
+    // console.log("ref 확인========================", liRef.current);
   }, [selectedMenu, liRef]);
 
     //  클릭된 menu의 detail 정보 가져오기
@@ -180,7 +182,7 @@ const PID04 = () => {
     <div className="container">
     {showModal && <div className="modal" onClick={(e) => toggleModal(e)}><AddMenu modal={toggleModal} /></div>}
       <Header />
-      <div className="contentsBox">
+      <div className="contents-box">
         <div className="item">
           <h2 className="menu-title">메뉴 목록</h2>
           <ul className={styles.list}>
@@ -189,7 +191,7 @@ const PID04 = () => {
                 <>
                   <li
                     className={styles.listItem}
-                    data-key={menu.menu_id}
+                    key={menu.menu_id}
                     ref={(el) => {
                       liRef.current[i] = el;
                     }}
@@ -206,7 +208,7 @@ const PID04 = () => {
                           <li
                             className={styles.listItem}
                             ref={(el) => {
-                              liRef.current[i * 10 + si] = el;
+                              liRef.current[(i * 10) + si] = el;
                             }}
                             onClick={(e) => toggleMenu(subMenu.menu_id, e)}
                           >
