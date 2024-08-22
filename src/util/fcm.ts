@@ -1,20 +1,23 @@
+const sendMessage = async () => {
+    const fetchOption = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY}`,
+      },
+      body: JSON.stringify({
+        message: {
+          topic: "matchday",
+          notification: {
+            title: "Background Message Title",
+            body: "Background message body",
+          },
+        },
+      }),
+    };
+  
+    await fetch(`https://fcm.googleapis.com/v1/projects/${process.env.NEXT_PUBLIC_FIREBASE_PROJECTID}/messages:send`, fetchOption);
+};
+  
 
-import { getToken, onMessage } from "firebase/messaging";
-
-
-
-
-
-// 토큰값 얻기 
-// getToken(messaging, {
-    // vapidKey : process.env.NEXT_FIREBASE_VAPID_KEY
-// }).then((currentToken) => {
-    // if (currentToken) {
-        // console.log("fcm 토큰 ======================================", currentToken);
-    // } else {
-        // console.log('No registration token available. Request permission to generate one.');
-    // }
-// })
-// .catch((err) => {
-    // console.log('An error occurred while retrieving token. ', err);
-// })
+export {sendMessage};

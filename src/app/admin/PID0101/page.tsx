@@ -13,6 +13,27 @@ const PID01 = () => {
   
   const [permission, setPermission] = useState<NotificationPermission>("default");
   const [token, setToken] = useState<string | null>(null);
+  
+  const sendMessage = async () => {
+    const fetchOption = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY}`,
+      },
+      body: JSON.stringify({
+        message: {
+          topic: "matchday",
+          notification: {
+            title: "Background Message Title",
+            body: "Background message body",
+          },
+        },
+      }),
+    };
+  
+    await fetch(`https://fcm.googleapis.com/v1/projects/${process.env.NEXT_PUBLIC_FIREBASE_PROJECTID}/messages:send`, fetchOption);
+  };
 
   useEffect(() => {
 
@@ -74,7 +95,7 @@ const PID01 = () => {
           <input placeholder="메시지를 입력해주세요" />
           <div className="button-wrapper">
             <button className="button">취소</button>
-            <button className="button">보내기</button>
+            <button className="button" onClick={sendMessage}>보내기</button>
             <button className="button" onClick={requestNotificationPermission}>권한 설정</button>
           </div>
         </div>
