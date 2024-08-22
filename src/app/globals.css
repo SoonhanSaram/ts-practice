@@ -146,7 +146,7 @@ input {
   margin: 0 auto; /* 가운데 정렬 */
   padding: 20px; /* 내부 여백 */
 
-  .contentsBox {
+  .contents-box {
     display: flex; /* Flexbox 사용 */
     flex-wrap: wrap; /* 행이 가득 차면 다음 행으로 넘김 */
     gap: 10px; /* 아이템 사이의 간격 */

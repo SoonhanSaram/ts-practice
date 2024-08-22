@@ -1,4 +1,5 @@
 'use client'
+<<<<<<< HEAD
 import menus from '../../../data/menu.json';
 import { useEffect } from 'react';
 import SideNav from '../components/sideNav';
@@ -11,6 +12,13 @@ interface Menu {
     menu_url : string;    
     menu_authorizaion : string;
 }
+=======
+
+
+import menus from '../../../data/menu.json';
+import { useEffect } from 'react';
+
+>>>>>>> 49d9439dd93572dfe53d51f0d4ccc2283e1a25b6
 
 export default function Page() {
 
