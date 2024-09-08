@@ -47,7 +47,7 @@ const SideNav = () => {
                     ) : <a data-key={menu.menu_id} onClick={(e)=> onClick(e)}>{menu.menu_name}  {clicked === menu.menu_id ? <VscChevronDown/>: <VscChevronUp/>}</a>}
                         {clicked === menu.menu_id && <ul className='sub-menu'>
                         {menus.filter(subMenu => subMenu.upper_menu === menu.menu_id).map((subMenu) => (
-                        <li key={subMenu.menu_id}><Link href={`/${subMenu.menu_url}`}>{subMenu.menu_name}</Link></li>
+                         <li className='depth-2' key={subMenu.menu_id}> <Link href={`/${subMenu.menu_url}`}>{subMenu.menu_name}</Link></li>
                         ))}
                     </ul>} 
                 </li>

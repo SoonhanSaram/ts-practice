@@ -27,6 +27,7 @@
   justify-content: end;
   align-items: end;
 }
+
 /* 버튼 디자인 */
 .button {
   background-color: #f4f4f4;
@@ -43,7 +44,7 @@
   transition: background-color 0.3s;
 }
 
-.button:hover{
+.button:hover {
   background-color: #ccc;
   color: #333;
 }
@@ -61,20 +62,21 @@
   z-index: 2;
 
   .modal-content {
-    background-color: #fff;    
+    background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     min-width: 30%;
     max-width: 80%;
     max-height: 80%;
-    overflow-y: auto; /* 내용이 길어지면 스크롤 */
+    overflow-y: auto;
+    /* 내용이 길어지면 스크롤 */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 99;
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
 
-  .modal-content > div {
+  .modal-content>div {
     padding: 10px;
   }
 }
@@ -85,6 +87,7 @@
   margin: 20px auto;
   position: relative;
 }
+
 .dust-class label {
   display: inline-block;
   position: absolute;
@@ -95,14 +98,17 @@
   color: #888;
   font-weight: bold;
 }
+
 .dust-class.ver2 label {
   top: initial;
   bottom: -20px;
 }
+
 .dust-class label span {
   color: #da4841;
   vertical-align: -1px;
 }
+
 .dust-class input {
   width: 100%;
   border: 1px solid #dddddd !important;
@@ -142,25 +148,39 @@ input {
 
 /* Auto layout */
 .container {
-  max-width: 1200px; /* 최대 너비 */
-  margin: 0 auto; /* 가운데 정렬 */
-  padding: 20px; /* 내부 여백 */
+  max-width: 1200px;
+  /* 최대 너비 */
+  margin: 0 auto;
+  /* 가운데 정렬 */
+  padding: 20px;
+  /* 내부 여백 */
 
   .contents-box {
-    display: flex; /* Flexbox 사용 */
-    flex-wrap: wrap; /* 행이 가득 차면 다음 행으로 넘김 */
-    gap: 10px; /* 아이템 사이의 간격 */
-    padding: 10px; /* 내부 여백 */
+    display: flex;
+    /* Flexbox 사용 */
+    flex-wrap: wrap;
+    /* 행이 가득 차면 다음 행으로 넘김 */
+    gap: 10px;
+    /* 아이템 사이의 간격 */
+    padding: 10px;
+    /* 내부 여백 */
   }
 
   .item {
-    flex: 1 1 calc(33.333% - 20px); /* 각 아이템이 3등분 차지하도록 */
-    padding: 10px; /* 내부 여백 */
-    background-color: #ffffff; /* 아이템 배경색 */
-    border: 1px solid #ccc; /* 아이템 테두리 */
-    border-radius: 4px; /* 아이템 둥근 모서리 */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 아이템 그림자 */
-    box-sizing: border-box; /* 테두리 및 패딩 포함한 박스 크기 계산 */
+    flex: 1 1 calc(33.333% - 20px);
+    /* 각 아이템이 3등분 차지하도록 */
+    padding: 10px;
+    /* 내부 여백 */
+    background-color: #ffffff;
+    /* 아이템 배경색 */
+    border: 1px solid #ccc;
+    /* 아이템 테두리 */
+    border-radius: 4px;
+    /* 아이템 둥근 모서리 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* 아이템 그림자 */
+    box-sizing: border-box;
+    /* 테두리 및 패딩 포함한 박스 크기 계산 */
   }
 }
 
@@ -201,6 +221,11 @@ input {
       width: 100%;
     }
 
+    /* 리스트 메뉴 */
+    li.depth-2 {
+      margin-left: 10px;
+    }
+
     a {
       color: rgba(255, 255, 255, 0.9);
       font-size: 0.75em;
@@ -228,7 +253,7 @@ input {
     }
   }
 
-  .nav-menu > .sub-menu {
+  .nav-menu>.sub-menu {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -239,7 +264,7 @@ input {
     position: relative;
     left: 20px;
 
-    .nav-menu > .sub-menu > li {
+    .nav-menu>.sub-menu>li {
       margin-left: 500;
     }
   }
@@ -247,12 +272,16 @@ input {
 
 div.row-container {
   display: flex;
-  flex-wrap: wrap; /* 자식 요소들이 넘치면 줄 바꿈 */
-  gap: 10px; /* 자식 요소 간의 간격을 설정 */
+  flex-wrap: wrap;
+  /* 자식 요소들이 넘치면 줄 바꿈 */
+  gap: 10px;
+  /* 자식 요소 간의 간격을 설정 */
 
   .row-item {
-    flex: 1 1 auto; /* 자식 요소가 컨테이너의 가용 공간을 적절히 차지하도록 설정 */
-    min-width: 60px; /* 자식 요소의 최소 너비를 설정 (적절히 조절 가능) */
+    flex: 1 1 auto;
+    /* 자식 요소가 컨테이너의 가용 공간을 적절히 차지하도록 설정 */
+    min-width: 60px;
+    /* 자식 요소의 최소 너비를 설정 (적절히 조절 가능) */
     min-height: 20px;
     margin: 8px;
     color: #ffffff;
@@ -267,6 +296,7 @@ div.row-container {
 .clicked {
   color: rgb(130, 130, 161);
   background-color: lightcoral;
+
   li {
     color: black;
   }

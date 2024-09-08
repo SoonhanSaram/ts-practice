@@ -135,3 +135,5 @@ dist
 firebase-messaging-sw.js
 */firebase-messaging-sw.js
 menu.json
+
+smartmap-fcm*.json
