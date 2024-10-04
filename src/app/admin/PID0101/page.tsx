@@ -7,36 +7,41 @@ import { useEffect, useState } from "react";
 import { getMessaging } from "firebase/messaging/sw";
 import { getToken, onMessage } from "firebase/messaging";
 
-type NotificationPermission = 'default' | 'granted' | 'denied';
+type NotificationPermission = "default" | "granted" | "denied";
 
 const PID01 = () => {
-  
-  const [permission, setPermission] = useState<NotificationPermission>("default");
+  const [permission, setPermission] = useState<NotificationPermission>(
+    "default"
+  );
   const [token, setToken] = useState<string | null>(null);
-  
-  const sendMessage = async () => {
-    const fetchOption = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY}`,
-      },
-      body: JSON.stringify({
-        message: {
-          topic: "matchday",
-          notification: {
-            title: "Background Message Title",
-            body: "Background message body",
-          },
+
+  // 서버 sdk 로 push 요청
+  const sendNotification = async () => {
+    try {
+      const response = await fetch("/api/fcm/sendNotification", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      }),
-    };
-  
-    await fetch(`https://fcm.googleapis.com/v1/projects/${process.env.NEXT_PUBLIC_FIREBASE_PROJECTID}/messages:send`, fetchOption);
+        body: JSON.stringify({
+          notification: {
+            title: "hello",
+            body: "world",
+          },
+        }),
+      });
+
+      if (response.ok) {
+        console.log("Notification sent successfully");
+      } else {
+        console.log("Failed to send notification");
+      }
+    } catch (error) {
+      console.error("Error sending notification:", error);
+    }
   };
 
   useEffect(() => {
-
     // new Notification('hello', { body: 'hello' });
 
     const app = firebase.initializeApp(firebaseConfig);
@@ -54,7 +59,9 @@ const PID01 = () => {
             setToken(currentToken);
             console.log("Token received: ", currentToken);
           } else {
-            console.log("No registration token available. Request permission to generate one.");
+            console.log(
+              "No registration token available. Request permission to generate one."
+            );
           }
         })
         .catch((err) => {
@@ -95,8 +102,12 @@ const PID01 = () => {
           <input placeholder="메시지를 입력해주세요" />
           <div className="button-wrapper">
             <button className="button">취소</button>
-            <button className="button" onClick={sendMessage}>보내기</button>
-            <button className="button" onClick={requestNotificationPermission}>권한 설정</button>
+            <button className="button" onClick={sendNotification}>
+              보내기
+            </button>
+            <button className="button" onClick={requestNotificationPermission}>
+              권한 설정
+            </button>
           </div>
         </div>
       </div>

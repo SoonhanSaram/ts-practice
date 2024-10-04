@@ -1,13 +1,14 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import menus from "../../../data/menu.json";
 import { useEffect, useState } from "react";
 
 const Header = () => {
   const [title, setTitle] = useState("");
   const pathname = usePathname().substring(1);
- 
+  const params = useSearchParams();
+  const extraPage = params.get("page");
   // 초기버전
   useEffect(() => {
     // const start = window.performance.now();
@@ -29,11 +30,12 @@ const Header = () => {
           )
         : null;
     } else {
-        setTitle(currentMenu.menu_name);
+      setTitle(currentMenu.menu_name);
     }
+
     // const end = window.performance.now();
     // console.log('time =================================', end - start);
-  }, [title]);
+  }, [pathname, extraPage]);
 
   return (
     <>

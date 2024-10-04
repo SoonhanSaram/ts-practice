@@ -6,7 +6,6 @@ import AddMenu from "./addMenu";
 import styles from "../../css/list.module.css";
 import Header from "@/app/components/header";
 
-
 const PID04 = () => {
   const field: { id: keyof Menu; title: string }[] = [
     { id: "menu_id", title: "메뉴 ID" },
@@ -21,7 +20,7 @@ const PID04 = () => {
   // 클릭 상태 관리
   const [cliked, setCliked] = useState<{ [key: string]: boolean }>({});
   const [selectedMenu, setSelectedMenu] = useState<Menu | null>(null);
-  const [showModal, setShowModal] = useState(false);  
+  const [showModal, setShowModal] = useState(false);
 
   // li useRef
   const liRef = useRef<null[] | HTMLLIElement[]>([]);
@@ -33,31 +32,35 @@ const PID04 = () => {
   const updateMenu = async () => {
     // console.log("input value====================================", JSON.stringify(inputValue));
 
-    confirm('메뉴를 수정하시겠습니까?'); {
-      const fetchOption = { 
+    confirm("메뉴를 수정하시겠습니까?");
+    {
+      const fetchOption = {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(inputValue),
-      }
+      };
       const res = await fetch("/api/menu/updateMenu", fetchOption);
-    } return ;
-  }
+    }
+    return;
+  };
 
   // menu delete api
   const deleteMenu = async () => {
-    confirm('메뉴를 삭제하시겠습니까?'); {
-      const fetchOption = { 
+    confirm("메뉴를 삭제하시겠습니까?");
+    {
+      const fetchOption = {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(selectedMenu),
-      }
+      };
       const res = await fetch("/api/menu/deleteMenu", fetchOption);
-    } return ;
-  }
+    }
+    return;
+  };
 
   // input state init
   const initInputValue = (menu?: Menu) => {
@@ -91,8 +94,6 @@ const PID04 = () => {
       }));
     }
     const activeMenu = (e: any) => {
-
-
       // dataset 의 key 값 가져오기
       const menuKey = e.currentTarget.getAttribute("key");
 
@@ -100,9 +101,9 @@ const PID04 = () => {
 
       // console.log("위치확인 =========================")
       // 모든 li classlist 를 순회해서 클릭되지 않은 li 의 "clicked" 클래스 삭제
-      liRef.current.map((li) => {
-        li?.classList.remove('clicked');
-      })
+      liRef.current.forEach((li) => {
+        li?.classList.remove("clicked");
+      });
       // console.log("위치확인2 =========================")
       e.target.getAttribute("key") === menuKey
         ? e.target.classList.add("clicked")
@@ -124,22 +125,24 @@ const PID04 = () => {
     setSelectedMenu(menu);
   };
 
-  const toggleModal = (e? : any) => {
-
+  const toggleModal = (e?: any) => {
     const className = e.target.className;
 
-    className === "" || className === "modal-content" || className === "button-wrapper" ? null :setShowModal(!showModal);
-
-    
+    className === "" ||
+    className === "modal-content" ||
+    className === "button-wrapper"
+      ? null
+      : setShowModal(!showModal);
   };
 
   useEffect(() => {
-    fetch("/api/menu")
+    fetch("/api/menu");
     initInputValue(selectedMenu!);
+    // console.log("menus", menus);
     // console.log("ref 확인========================", liRef.current);
   }, [selectedMenu, liRef]);
 
-    //  클릭된 menu의 detail 정보 가져오기
+  //  클릭된 menu의 detail 정보 가져오기
   const showDetail = () => {
     return selectedMenu
       ? field.map((input) => {
@@ -178,7 +181,11 @@ const PID04 = () => {
 
   return (
     <div className="container">
-    {showModal && <div className="modal" onClick={(e) => toggleModal(e)}><AddMenu modal={toggleModal} /></div>}
+      {showModal && (
+        <div className="modal" onClick={(e) => toggleModal(e)}>
+          <AddMenu modal={toggleModal} />
+        </div>
+      )}
       <Header />
       <div className="contents-box">
         <div className="item">
@@ -191,6 +198,7 @@ const PID04 = () => {
                     className={styles.listItem}
                     key={menu.menu_id}
                     ref={(el) => {
+                      // console.log("el 이 뭐야 ========================", el),
                       liRef.current[i] = el;
                     }}
                     style={{ cursor: "pointer" }}
@@ -206,7 +214,7 @@ const PID04 = () => {
                           <li
                             className={styles.listItem}
                             ref={(el) => {
-                              liRef.current[(i * 10) + si] = el;
+                              liRef.current[(i + 1) * 10 + si] = el;
                             }}
                             onClick={(e) => toggleMenu(subMenu.menu_id, e)}
                           >
@@ -222,9 +230,18 @@ const PID04 = () => {
         <div className="item">
           {showDetail()}
           <div className="button-wrapper">
-            <button className="button" onClick={toggleModal}>추가</button> &nbsp;
-            <button className="button" onClick={updateMenu}>수정</button> &nbsp;
-            <button className="button" onClick={deleteMenu}>삭제</button> &nbsp;
+            <button className="button" onClick={toggleModal}>
+              추가
+            </button>{" "}
+            &nbsp;
+            <button className="button" onClick={updateMenu}>
+              수정
+            </button>{" "}
+            &nbsp;
+            <button className="button" onClick={deleteMenu}>
+              삭제
+            </button>{" "}
+            &nbsp;
           </div>
         </div>
       </div>
