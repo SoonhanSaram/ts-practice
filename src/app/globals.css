@@ -86,38 +86,38 @@
   box-sizing: border-box;
   margin: 20px auto;
   position: relative;
-}
 
-.dust-class label {
-  display: inline-block;
-  position: absolute;
-  left: 14px;
-  padding: 1px;
-  background: white;
-  font-size: 14px;
-  color: #888;
-  font-weight: bold;
+  > label {
+    display: inline-block;
+    position: absolute;
+    left: 14px;
+    padding: 1px;
+    background: white;
+    font-size: 14px;
+    color: #888;
+    font-weight: bold;
+  }
+
+  label span {
+    color: #da4841;
+    vertical-align: -1px;
+  }
+
+  input {
+    width: 100%;
+    border: 1px solid #dddddd !important;
+    font-size: 1rem;
+    line-height: 1.45;
+    letter-spacing: -0.04rem;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 12px;
+  }
 }
 
 .dust-class.ver2 label {
   top: initial;
   bottom: -20px;
-}
-
-.dust-class label span {
-  color: #da4841;
-  vertical-align: -1px;
-}
-
-.dust-class input {
-  width: 100%;
-  border: 1px solid #dddddd !important;
-  font-size: 1rem;
-  line-height: 1.45;
-  letter-spacing: -0.04rem;
-  border-radius: 8px;
-  padding: 16px;
-  margin-top: 12px;
 }
 
 input {
@@ -379,4 +379,9 @@ input#option1:checked ~ .slider {
 input#option2:checked ~ .slider {
   transform: translateX(100%);
   background-color: #888;
+}
+
+/* input file  */
+.input-file {
+  display: none;
 }

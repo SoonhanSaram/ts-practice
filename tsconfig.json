@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "next-type.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/fcm/route.tx"],
+  "include": ["next-env.d.ts", "next-type.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/fcm/route.tx", "custom.d.ts"],
   "exclude": ["node_modules"]
 }
