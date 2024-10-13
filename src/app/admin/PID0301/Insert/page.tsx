@@ -3,7 +3,6 @@ import Header from "@/app/components/header";
 import { set } from "firebase/database";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
-
 import "react-datepicker/dist/react-datepicker.css";
 
 /**
@@ -19,8 +18,9 @@ const Insert = () => {
   const [imageFile, setImageFile] = useState("");
   const [previewURL, setPreviewURL] = useState("");
 
+  const defaultProfile = "../../../../../public/defaultProfile.jpg"
   const defaultImage = (e: any) => {
-    e.target.src = null;
+    e.target.src =  defaultProfile;
   };
 
   const selectImage = (e: any) => {
@@ -84,7 +84,7 @@ const Insert = () => {
             <label htmlFor="bannerTitle">배너 제목</label>
             <input id="bannerTitle" type="text" />
           </div>
-          <div>
+          <div className="dust-class">
             <h4>이미지 미리보기</h4>
             <div
               style={{
@@ -153,8 +153,9 @@ const Insert = () => {
               onChange={(date) => setEndDate(date)}
             />
           </div>
+          <div className="dust-class">
           <label>
-            종료 시간
+            종료 시간</label>
             <input
               type="text"
               value={endTime}
@@ -162,7 +163,7 @@ const Insert = () => {
               maxLength={5}
               placeholder="00:00"
             />
-          </label>
+          </div>
         </div>
       </div>
       <div className="button-wrapper">
