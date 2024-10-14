@@ -16,11 +16,11 @@ const Insert = () => {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [imageFile, setImageFile] = useState("");
-  const [previewURL, setPreviewURL] = useState("");
+  const [previewURL, setPreviewURL] = useState("/defaultProfile.jpg");
 
-  const defaultProfile = "../../../../../public/defaultProfile.jpg"
+  const defaultProfile = "/defaultProfile.jpg";
   const defaultImage = (e: any) => {
-    e.target.src =  defaultProfile;
+    e.target.src = defaultProfile;
   };
 
   const selectImage = (e: any) => {
@@ -154,8 +154,7 @@ const Insert = () => {
             />
           </div>
           <div className="dust-class">
-          <label>
-            종료 시간</label>
+            <label>종료 시간</label>
             <input
               type="text"
               value={endTime}
