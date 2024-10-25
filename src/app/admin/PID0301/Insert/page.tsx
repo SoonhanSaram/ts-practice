@@ -20,6 +20,8 @@ const Insert = () => {
   const [bannerTitle, setBannerTitle] = useState("");
   const defaultProfile = "/defaultProfile.jpg";
   const [location, setLocation] = useState("");
+  const fileSize = 3 * 1024 * 1024;
+
   const defaultImage = (e: any) => {
     e.target.src = defaultProfile;
   };
@@ -27,10 +29,15 @@ const Insert = () => {
   const selectImage = (e: any) => {
     const file = e.target.files[0];
 
-    const getURL = URL.createObjectURL(file);
-    setPreviewURL(getURL);
-    setImageFile(file);
-    console.log(file);
+    if (file.size > fileSize) {
+      alert("파일이 3MB 보다 큽니다.");
+      return;
+    } else {
+      const getURL = URL.createObjectURL(file);
+      setPreviewURL(getURL);
+      setImageFile(file);
+      // console.log(file);
+    }
   };
 
   const validatingInput = () => {
