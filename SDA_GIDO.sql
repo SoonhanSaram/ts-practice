@@ -28,3 +28,29 @@ insert into GIDO_menu_info value('ad04', '메뉴관리', 4,'' , 'admin/PID04', '
 
 insert into GIDO_menu_info value('ad0301', '이벤트배너관리',1 ,'ad03' , 'admin/PID0301', 'y', 'admin');
 insert into GIDO_menu_info value('ad0302', '팝업관리', 2,'ad03' , 'admin/PID0302', 'y', 'admin');
+
+/* 배너 정보 */ 
+
+drop table if exists Admin_banner;
+
+create table if not exists Admin_banner (
+banner_seq int not null auto_increment comment "배너 번호",
+banner_title varchar(255) not null comment "배너 제목",
+banner_used enum('y', 'n') not null comment "배너 사용여부",
+-- banner_location int not null comment "배너 위치",
+banner_sdate date not null comment "시작 일자",
+banner_stime time not null comment "시작 시각",
+banner_edate date not null comment "종료 일자",
+banner_etime time not null comment "종료 시각",
+-- banner_url text comment "배너 url",
+banner_registrant varchar(30) not null comment "등록자명",
+banner_image varchar(1000) comment "이미지 파일 위치",
+primary key (banner_seq)
+);
+
+
+
+
+
+
+
