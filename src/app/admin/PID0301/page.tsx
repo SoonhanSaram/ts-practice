@@ -1,7 +1,23 @@
+"use client";
+
 import Header from "@/app/components/header";
+import { PagiNation } from "@/app/components/pagination";
 import Link from "next/link";
+import { useEffect } from "react";
 
 const PID0301 = () => {
+  const getBanners = async () => {
+    const banners = await fetch("/api/banner", { method: "GET" });
+
+    const result = await banners.json();
+
+    console.log(result.data);
+  };
+
+  useEffect(() => {
+    getBanners();
+  }, []);
+
   return (
     <div className="container">
       <Header />
@@ -29,6 +45,7 @@ const PID0301 = () => {
           </table>
         </div>
       </div>
+      <PagiNation total={100000} limit={200} page={1} offset={5} />
       <div className="button-wrapper">
         {/* 등록 버튼을 누르면 PID0301/Insert?page=등록 으로 이동 */}
         <Link className="button" href="/admin/PID0301/Insert">
