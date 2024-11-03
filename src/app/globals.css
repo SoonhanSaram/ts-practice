@@ -397,3 +397,20 @@ input#option2:checked ~ .slider {
 .input-file {
   display: none;
 }
+
+.pagination {
+  display: inline;
+
+  li {
+    float: left;
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  li:hover {
+    background-color: #4caf50;
+    color: white;
+  }
+}

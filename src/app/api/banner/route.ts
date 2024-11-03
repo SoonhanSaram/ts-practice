@@ -63,7 +63,7 @@ export async function GET(req: Request, res: NextResponse) {
 
   try {
     const findBanner = await banner.findAll();
-    return NextResponse.json({ status: 200, data: findBanner });
+    return NextResponse.json({ status: 200, data: findBanner.length });
   } catch (error) {
     return NextResponse.json({ status: 304, message: "find banner Error" });
   }
