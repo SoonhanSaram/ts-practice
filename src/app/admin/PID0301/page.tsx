@@ -3,15 +3,34 @@
 import Header from "@/app/components/header";
 import { PagiNation } from "@/app/components/pagination";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const PID0301 = () => {
+  const [banners, setBanners] = useState([]);
+
   const getBanners = async () => {
     const banners = await fetch("/api/banner", { method: "GET" });
 
     const result = await banners.json();
 
-    console.log(result.data);
+    setBanners(result.data);
+    console.log("데이터 ", result);
+  };
+
+  const bannerList = () => {
+    return banners.map((banner: Banner, i) => (
+      <tr key={banner.banner_seq}>
+        <td>{i + 1}</td>
+        <td>{banner.banner_title}</td>
+        <td></td>
+        <td>{banner.banner_used}</td>
+        <td>{banner.banner_location}</td>
+        <td>{banner.banner_sdate}</td>
+        <td>{banner.banner_edate}</td>
+        <td>{banner.banner_registrant}</td>
+        <td>{banner.banner_count}</td>
+      </tr>
+    ));
   };
 
   useEffect(() => {
@@ -33,14 +52,18 @@ const PID0301 = () => {
                 <th>배너 위치</th>
                 <th>시작일</th>
                 <th>종료일</th>
-                <th>등록일</th>
+                <th>등록한 사용자</th>
                 <th>클릭 수 통계</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td colSpan={9}>등록된 배너가 없습니다.</td>
-              </tr>
+              {banners.length > 0 ? (
+                bannerList()
+              ) : (
+                <tr>
+                  <td colSpan={9}>등록된 배너가 없습니다.</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

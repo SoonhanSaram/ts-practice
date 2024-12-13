@@ -51,6 +51,21 @@ export default (sequelize) => {
         allowNull: true,
         comment: "이미지 파일 위치",
       },
+      banner_url: {
+        type: Sequelize.DataTypes.STRING(1000),
+        allowNull: true,
+        comment: "연결 URL 주소",
+      },
+      banner_location: {
+        type: Sequelize.DataTypes.TINYINT,
+        allowNull: true,
+        comment: "배너 위치",
+      },
+      banner_count: {
+        type: Sequelize.DataTypes.INTEGER,
+        allowNull: true,
+        comment: "배너 클릭 횟수",
+      },
     },
     {
       sequelize,

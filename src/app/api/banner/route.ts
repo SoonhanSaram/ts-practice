@@ -43,6 +43,8 @@ export async function POST(req: Request, res: NextResponse) {
           banner_etime: endtime,
           banner_registrant: "관리자",
           banner_image: `${upload_banner}/${imageName!}`,
+          banner_location: location,
+          banner_url: "테스트url",
         },
         { transaction: t }
       );
@@ -52,9 +54,12 @@ export async function POST(req: Request, res: NextResponse) {
       status: 200,
       message: "Banner created successfully",
     });
-  } catch (Error) {
-    console.log({ message: "error ", Error });
-    return NextResponse.json({ status: 500, message: "Internal Server Error" });
+  } catch (err) {
+    console.log({ message: "error", err });
+
+    throw new Error("Internal Server Error");
+
+    // return NextResponse.json({ status: 500, message: "Internal Server Error" });
   }
 }
 
@@ -63,7 +68,7 @@ export async function GET(req: Request, res: NextResponse) {
 
   try {
     const findBanner = await banner.findAll();
-    return NextResponse.json({ status: 200, data: findBanner.length });
+    return NextResponse.json({ status: 200, data: findBanner });
   } catch (error) {
     return NextResponse.json({ status: 304, message: "find banner Error" });
   }

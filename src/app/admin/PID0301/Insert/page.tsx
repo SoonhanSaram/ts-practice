@@ -41,30 +41,30 @@ const Insert = () => {
   };
 
   const validatingInput = () => {
-    // if (!bannerTitle) {
-    //   alert("배너제목을 입력해주세요");
-    //   return;
-    // }
-    // if (!startDate) {
-    //   alert("시작일을 지정해주세요.");
-    //   return;
-    // }
-    // if (!endDate) {
-    //   alert("종료일을 지정해주세요.");
-    //   return;
-    // }
-    // if (!startTime) {
-    //   alert("시작시간을 지정해주세요.");
-    //   return;
-    // }
-    // if (!endTime) {
-    //   alert("종료시간을 지정해주세요.");
-    //   return;
-    // }
-    // if (!imageFile) {
-    //   alert("배너 이미지를 지정해주세요.");
-    //   return;
-    // }
+    if (!bannerTitle) {
+      alert("배너제목을 입력해주세요");
+      return;
+    }
+    if (!startDate) {
+      alert("시작일을 지정해주세요.");
+      return;
+    }
+    if (!endDate) {
+      alert("종료일을 지정해주세요.");
+      return;
+    }
+    if (!startTime) {
+      alert("시작시간을 지정해주세요.");
+      return;
+    }
+    if (!endTime) {
+      alert("종료시간을 지정해주세요.");
+      return;
+    }
+    if (!imageFile) {
+      alert("배너 이미지를 지정해주세요.");
+      return;
+    }
 
     uploadBanner();
   };
@@ -93,10 +93,21 @@ const Insert = () => {
       // },
       body: formData,
     };
+    const response = await fetch("/api/banner", fetchOption);
 
-    await fetch("/api/banner", fetchOption);
+    const result = await response.json();
+
+    if (response.ok) {
+      alert("배너 등록 완료");
+      window.location.href = "/admin/PID0301";
+    }
+    if (!response.ok) {
+      alert("저장 중 에러발생");
+      window.location.reload();
+    }
   };
   //  사용자가 입력할 때의 처리
+
   const handleChange = (e: any, setTime: any) => {
     let input = e.target.value.replace(/\D/g, ""); // 숫자가 아닌 모든 문자 제거
 
