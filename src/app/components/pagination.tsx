@@ -1,20 +1,33 @@
 import { useEffect, useState } from "react";
 
 interface Props {
-  total: number;
   limit: number;
   page: number;
   offset: number;
+  route: any;
 }
 
-export const PagiNation = (
-  { total, limit, page, offset }: Props,
-  route: any
-) => {
-  const pages = Math.ceil(total / offset);
+export const PagiNation = ({ limit, page, offset, route }: Props) => {
+  const [pages, setPages] = useState(0);
   const [start, setStart] = useState(1);
   const [filteredPages, setFilteredPages] = useState<number[]>([]);
   console.log(pages);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await route();
+        const result = await response.json();
+
+        console.log("카운트", result.count);
+        setPages(Math.ceil(result.count / limit));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const paging = () => {
     const groupSize = 5;

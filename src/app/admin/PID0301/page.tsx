@@ -2,18 +2,26 @@
 
 import Header from "@/app/components/header";
 import { PagiNation } from "@/app/components/pagination";
+import { limit } from "firebase/firestore";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const PID0301 = () => {
   const [banners, setBanners] = useState([]);
+  const [offset, setOffset] = useState(0);
+  const [limit, setLimit] = useState(10);
 
-  const getBanners = async () => {
-    const banners = await fetch("/api/banner", { method: "GET" });
+  const getBanners = async (offset: number, limit: number) => {
+    !offset && (offset = 0);
+    !limit && (limit = 10);
+
+    const banners = await fetch(`/api/banner/list/${offset}/${limit}`, {
+      method: "GET",
+    });
 
     const result = await banners.json();
 
-    setBanners(result.data);
+    // setBanners(result.data);
     console.log("데이터 ", result);
   };
 
@@ -32,10 +40,6 @@ const PID0301 = () => {
       </tr>
     ));
   };
-
-  useEffect(() => {
-    getBanners();
-  }, []);
 
   return (
     <div className="container">
@@ -68,7 +72,12 @@ const PID0301 = () => {
           </table>
         </div>
       </div>
-      <PagiNation total={100000} limit={200} page={1} offset={5} />
+      <PagiNation
+        limit={5}
+        page={1}
+        offset={5}
+        route={() => getBanners(offset, limit)}
+      />
       <div className="button-wrapper">
         {/* 등록 버튼을 누르면 PID0301/Insert?page=등록 으로 이동 */}
         <Link className="button" href="/admin/PID0301/Insert">

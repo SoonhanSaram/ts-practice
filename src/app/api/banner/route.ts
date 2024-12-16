@@ -66,6 +66,8 @@ export async function POST(req: Request, res: NextResponse) {
 export async function GET(req: Request, res: NextResponse) {
   // admin 인지 확인 이후
 
+  console.log("페이지네이션 실행");
+
   try {
     const findBanner = await banner.findAll();
     return NextResponse.json({ status: 200, data: findBanner });
