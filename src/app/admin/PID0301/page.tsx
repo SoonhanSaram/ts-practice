@@ -2,14 +2,24 @@
 
 import Header from "@/app/components/header";
 import { PagiNation } from "@/app/components/pagination";
+import { AppDispatch, RootState } from "@/redux/store";
 import { limit } from "firebase/firestore";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const PID0301 = () => {
   const [banners, setBanners] = useState([]);
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(10);
+
+  // redux 사용준비
+  const dispatch: AppDispatch = useDispatch();
+  const bbsItem = useSelector((state: RootState) => state.bbsItem.bbsItemList);
+
+  const updateBbsItemList = (newBbsItemList: []) => {
+    dispatch(setBbsItem(newBbsItemList));
+  };
 
   const getBanners = async (offset: number, limit: number) => {
     !offset && (offset = 0);
@@ -22,7 +32,7 @@ const PID0301 = () => {
     const result = await banners.json();
 
     // setBanners(result.data);
-    console.log("데이터 ", result);
+    // console.log("데이터 ", result);
   };
 
   const bannerList = () => {

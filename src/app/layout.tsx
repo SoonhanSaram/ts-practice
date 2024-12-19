@@ -4,6 +4,7 @@ import "./globals.css";
 import SideNav from "./components/sideNav";
 import "../util/fcm";
 import { fetchMenus } from "@/util/menu";
+import ClientLayout from "./clientLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,14 +18,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
   return (
     <html lang="ko">
+      <head></head>
       <body className={inter.className}>
-        <SideNav/>
-        {children}
+        <SideNav />
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );
 }
-
