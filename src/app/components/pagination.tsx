@@ -11,18 +11,18 @@ export const PagiNation = ({ limit, page, offset, route }: Props) => {
   const [pages, setPages] = useState(0);
   const [start, setStart] = useState(1);
   const [filteredPages, setFilteredPages] = useState<number[]>([]);
-  console.log(pages);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await route();
+        const response = await route(offset, limit);
         const result = await response.json();
 
         console.log("카운트", result.count);
+
         setPages(Math.ceil(result.count / limit));
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.log("Error fetching data:", error);
       }
     };
 

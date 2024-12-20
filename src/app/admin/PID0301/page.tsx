@@ -7,6 +7,7 @@ import { limit } from "firebase/firestore";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import bbsitem, { setBbsItem } from "@/redux/bbsitem";
 
 const PID0301 = () => {
   const [banners, setBanners] = useState([]);
@@ -18,12 +19,11 @@ const PID0301 = () => {
   const bbsItem = useSelector((state: RootState) => state.bbsItem.bbsItemList);
 
   const updateBbsItemList = (newBbsItemList: []) => {
-    dispatch(setBbsItem(newBbsItemList));
+    dispatch(setBbsItem.setBbsItem(newBbsItemList));
   };
 
   const getBanners = async (offset: number, limit: number) => {
-    !offset && (offset = 0);
-    !limit && (limit = 10);
+    console.log("offset, limit", offset, limit);
 
     const banners = await fetch(`/api/banner/list/${offset}/${limit}`, {
       method: "GET",
@@ -31,12 +31,21 @@ const PID0301 = () => {
 
     const result = await banners.json();
 
-    // setBanners(result.data);
     // console.log("데이터 ", result);
+
+    updateBbsItemList(result.data);
+
+    console.log("bbsitem", bbsItem);
+
+    // setBanners(result.data);
   };
 
+  useEffect(() => {
+    console.log("bbsItem", bbsItem);
+  }, [bbsItem]);
+
   const bannerList = () => {
-    return banners.map((banner: Banner, i) => (
+    return bbsItem.map((banner: Banner, i) => (
       <tr key={banner.banner_seq}>
         <td>{i + 1}</td>
         <td>{banner.banner_title}</td>
@@ -71,7 +80,7 @@ const PID0301 = () => {
               </tr>
             </thead>
             <tbody>
-              {banners.length > 0 ? (
+              {bbsitem.length > 0 ? (
                 bannerList()
               ) : (
                 <tr>

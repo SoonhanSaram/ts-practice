@@ -1,5 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { set } from "firebase/database";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+
+interface BbsItemState {
+  bbsItemList: [];
+  bbsItemSet: {};
+}
+
+const initialState: BbsItemState = {
+  bbsItemList: [],
+  bbsItemSet: {},
+};
 
 const bbsItemSlice = createSlice({
   name: "bbsItem",
@@ -8,11 +17,17 @@ const bbsItemSlice = createSlice({
     bbsItemSet: {},
   },
   reducers: {
-    setBbsItem: (state, action) => {
-      state.bbsItemList = action.payload;
+    setBbsItem: (state, action: PayloadAction<[]>) => {
+      if (action.payload && Array.isArray(action.payload)) {
+        // console.log("action.payload", action.payload);
+        state.bbsItemList = action.payload;
+        console.log("state.bbsItemList", state.bbsItemList);
+      } else {
+        console.error("Invalid payload for setBbsItem:", action.payload);
+      }
     },
   },
 });
 
-export const { setBbsItem } = bbsItemSlice.actions;
+export const setBbsItem = bbsItemSlice.actions;
 export default bbsItemSlice.reducer;
