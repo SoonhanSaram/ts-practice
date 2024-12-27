@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface BbsItemState {
-  bbsItemList: [];
+  bbsItemList: any[];
   bbsItemSet: {};
 }
 
@@ -12,14 +12,11 @@ const initialState: BbsItemState = {
 
 const bbsItemSlice = createSlice({
   name: "bbsItem",
-  initialState: {
-    bbsItemList: [],
-    bbsItemSet: {},
-  },
+  initialState,
   reducers: {
-    setBbsItem: (state, action: PayloadAction<[]>) => {
+    setBbsItem: (state, action: PayloadAction<any[]>) => {
       if (action.payload && Array.isArray(action.payload)) {
-        // console.log("action.payload", action.payload);
+        console.log("action.payload", action.payload);
         state.bbsItemList = action.payload;
         console.log("state.bbsItemList", state.bbsItemList);
       } else {

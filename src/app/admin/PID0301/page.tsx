@@ -9,40 +9,41 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import bbsitem, { setBbsItem } from "@/redux/bbsitem";
 
+interface args {
+  offset: number;
+  limit: number;
+  page: number;
+}
 const PID0301 = () => {
   const [banners, setBanners] = useState([]);
-  const [offset, setOffset] = useState(0);
-  const [limit, setLimit] = useState(10);
+  // const [offset, setOffset] = useState(0);
+  // const [limit, setLimit] = useState(10);
+  // const [length, setLength] = useState(0);
 
   // redux 사용준비
   const dispatch: AppDispatch = useDispatch();
-  const bbsItem = useSelector((state: RootState) => state.bbsItem.bbsItemList);
 
-  const updateBbsItemList = (newBbsItemList: []) => {
-    dispatch(setBbsItem.setBbsItem(newBbsItemList));
+  const bbsItem = useSelector((state: RootState) => state.bbsItem.bbsItemList);
+  const updateBbsItemList = (newBbsItemList?: []) => {
+    dispatch(setBbsItem.setBbsItem(newBbsItemList!));
   };
 
-  const getBanners = async (offset: number, limit: number) => {
-    console.log("offset, limit", offset, limit);
+  const getBanners = async (args?: args) => {
+    console.log("offset, limit, page", args!.limit, args!.offset, args!.page);
 
-    const banners = await fetch(`/api/banner/list/${offset}/${limit}`, {
+    const { page, offset, limit } = args!;
+
+    const banners = await fetch(`/api/banner/list/${page}/${offset}/${limit}`, {
       method: "GET",
     });
 
     const result = await banners.json();
 
-    // console.log("데이터 ", result);
-
-    updateBbsItemList(result.data);
-
-    console.log("bbsitem", bbsItem);
-
-    // setBanners(result.data);
+    // 전체 리스트 개수
+    return result;
   };
 
-  useEffect(() => {
-    console.log("bbsItem", bbsItem);
-  }, [bbsItem]);
+  useEffect(() => {}, [bbsItem]);
 
   const bannerList = () => {
     return bbsItem.map((banner: Banner, i) => (
@@ -95,7 +96,8 @@ const PID0301 = () => {
         limit={5}
         page={1}
         offset={5}
-        route={() => getBanners(offset, limit)}
+        route={() => getBanners()}
+        dispatch={() => updateBbsItemList()}
       />
       <div className="button-wrapper">
         {/* 등록 버튼을 누르면 PID0301/Insert?page=등록 으로 이동 */}
